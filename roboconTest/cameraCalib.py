@@ -13,14 +13,13 @@ while(found < 10):
     ret, frame = cap.read()
     gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
     ret, corners = cv.findChessboardCorners(gray, (7,6),None)
-    if ret == True:
+    if (ret == True) & (cv.waitKey(1) & 0xff==ord('q')):
         objpoints.append(objp)
         corners2 = cv.cornerSubPix(gray,corners,(11,11),(-1,-1),criteria)
         imgpoints.append(corners2)
         frame = cv.drawChessboardCorners(frame, (7,6), corners2, ret)
         found += 1
     cv.imshow('img', frame)
-    cv.waitKey(10)
 
 cap.release()
 cv.destroyAllWindows()
